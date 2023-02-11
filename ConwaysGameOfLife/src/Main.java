@@ -70,6 +70,14 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 		Sprite = getImage("Resources\\\\pause button.png");
 		g2.drawImage(Sprite, tx, null);
 		
+		tx = AffineTransform.getTranslateInstance(800, 916);
+		Sprite = getImage("Resources\\\\resetbutton.png");
+		g2.drawImage(Sprite, tx, null);
+		
+		tx = AffineTransform.getTranslateInstance(200, 916);
+		Sprite = getImage("Resources\\\\togglebutton.png");
+		g2.drawImage(Sprite, tx, null);
+		
 		tx = AffineTransform.getTranslateInstance(60, 920);
         if (!drawing) {Sprite = getImage("Resources\\\\eraser.png");}
         if (drawing) {Sprite = getImage("Resources\\\\pencil.png");}
