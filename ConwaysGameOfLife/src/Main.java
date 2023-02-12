@@ -124,8 +124,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 		if (arg0.getExtendedKeyCode() == 32) {drawing = toggle(drawing);}
 		if (arg0.getExtendedKeyCode() == 80) {playing = toggle(playing);}
 		if (arg0.getExtendedKeyCode() == 82) {grid.reset();}
-		if (arg0.getExtendedKeyCode() == 37) {if (TICKRATE-10 > 0) {TICKRATE-=10;}}
-		if (arg0.getExtendedKeyCode() == 39) {if (TICKRATE+10 < 60) {TICKRATE+=10;}}
+		if (arg0.getExtendedKeyCode() == 39) {if (TICKRATE-10 > 0) {TICKRATE-=10;}}
+		if (arg0.getExtendedKeyCode() == 37) {if (TICKRATE+10 < 60) {TICKRATE+=10;}}
 		
 	}
 
