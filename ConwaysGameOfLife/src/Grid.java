@@ -68,21 +68,21 @@ public class Grid {
 	public int getValue(int x, int y)      {return grid[x][y];}
 	public int getSize() {return size;}
 	
-	public void setValue(int x, int y, int val)   {grid[x][y] = val;}
+	public void setValue(int x, int y, int val)   {if (!(x < 0)&&!(y < 0)) {grid[x][y] = val;}}
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.GRAY);
 		for (int a = 0; a < grid.length; a++) {for (int b = 0; b < grid[a].length;b++) {
-			g.drawLine(0, b*(900/grid[a].length), 1600, b*(900/grid[a].length));
+			g.drawLine(150, b*(900/grid[a].length), 1750, b*(900/grid[a].length));
 			if (grid[a][b] == 1) {
 				g.setColor(Color.WHITE);
-				g.fillRect(a*(1600/grid.length), b*(900/grid[a].length), 900/grid[a].length, 900/grid[a].length);
+				g.fillRect(a*(1600/grid.length)+150, b*(900/grid[a].length), 900/grid[a].length, 900/grid[a].length);
 				g.setColor(Color.GRAY);
 			}
 		}
-			g.drawLine(a*(1600/grid.length), 0, a*(1600/grid.length), 900);
+			g.drawLine(a*(1600/grid.length)+150, 0, a*(1600/grid.length)+150, 900);
 		}
-		g.drawLine(1600, 0, 1600, 900);
-		g.drawLine(0, 900, 1600, 900);
+		g.drawLine(1750, 0, 1750, 900);
+		g.drawLine(150, 900, 1750, 900);
 	}
 }

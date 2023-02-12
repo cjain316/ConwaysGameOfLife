@@ -22,8 +22,10 @@ public class Selector {
 	
 	public void update(Point p, boolean clicking, Grid g, boolean drawing) {
 		if ((int)p.getY()/(1600/g.getLength()) < g.getHeight()) {
-			x = (int)p.getX()/(1600/g.getLength());
-			y = (int)p.getY()/(900/g.getHeight());
+			if ((int)p.getX()/(900/g.getHeight()) < g.getLength()+6) {
+				x = (int)p.getX()/(1600/g.getLength())-6;
+				y = (int)p.getY()/(900/g.getHeight());
+			}
 		}
 		
 		
@@ -37,7 +39,7 @@ public class Selector {
 	
 	public void paint(Graphics g, Grid f) {
 		g.setColor(new Color(100,100,100));
-		g.fillRect((x*affline+size/2), (y*affline+size/2), size, size);
+		g.fillRect((x*affline+size/2)+150, (y*affline+size/2), size, size);
 	}
 	
 	public void moveX(boolean right, Grid g) {

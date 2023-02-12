@@ -33,7 +33,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	boolean clicking = false;
 	int type;
 	boolean drawing = true;
-	
+	private int TICKRATE = 25;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Main f = new Main();
@@ -56,31 +56,41 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         grid.paint(g);
         s.update(point, clicking, grid,drawing);
         s.paint(g, grid);
-        if (counter == 25) {
+        if (counter >= TICKRATE) {
         	counter = 0;
         	if (playing) {grid.update();}
         }
         
-        tx = AffineTransform.getTranslateInstance(1400, 920);
+        tx = AffineTransform.getTranslateInstance(1800, 30);
         if (!playing) {Sprite = getImage("Resources\\\\Pause.png");}
         if (playing) {Sprite = getImage("Resources\\\\play.png");}
 		g2.drawImage(Sprite, tx, null);
 		
-		tx = AffineTransform.getTranslateInstance(1100, 916);
+		tx = AffineTransform.getTranslateInstance(1500, 916);
 		Sprite = getImage("Resources\\\\pause button.png");
 		g2.drawImage(Sprite, tx, null);
 		
-		tx = AffineTransform.getTranslateInstance(800, 916);
+		tx = AffineTransform.getTranslateInstance(1100, 916);
 		Sprite = getImage("Resources\\\\resetbutton.png");
 		g2.drawImage(Sprite, tx, null);
 		
-		tx = AffineTransform.getTranslateInstance(200, 916);
+		tx = AffineTransform.getTranslateInstance(150, 916);
 		Sprite = getImage("Resources\\\\togglebutton.png");
 		g2.drawImage(Sprite, tx, null);
 		
-		tx = AffineTransform.getTranslateInstance(60, 920);
+		tx = AffineTransform.getTranslateInstance(30, 30);
         if (!drawing) {Sprite = getImage("Resources\\\\eraser.png");}
         if (drawing) {Sprite = getImage("Resources\\\\pencil.png");}
+		g2.drawImage(Sprite, tx, null);
+		
+		tx = AffineTransform.getTranslateInstance(550, 916);
+		Sprite = getImage("Resources\\\\speedbutton.png");
+		g2.drawImage(Sprite, tx, null);
+		
+		
+		String path = "Resources\\\\"+TICKRATE+".png";
+		tx = AffineTransform.getTranslateInstance(900, 916);
+		Sprite = getImage(path);
 		g2.drawImage(Sprite, tx, null);
         
 	}
@@ -114,6 +124,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 		if (arg0.getExtendedKeyCode() == 32) {drawing = toggle(drawing);}
 		if (arg0.getExtendedKeyCode() == 80) {playing = toggle(playing);}
 		if (arg0.getExtendedKeyCode() == 82) {grid.reset();}
+		if (arg0.getExtendedKeyCode() == 37) {if (TICKRATE-10 > 0) {TICKRATE-=10;}}
+		if (arg0.getExtendedKeyCode() == 39) {if (TICKRATE+10 < 60) {TICKRATE+=10;}}
 		
 	}
 
@@ -140,6 +152,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         f.addMouseListener(this);
         f.addKeyListener(this);
         f.setResizable(false);
+        f.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         
         t = new Timer(1, this);
         t.start();
