@@ -28,12 +28,12 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	Grid grid = new Grid(2);
 	Selector s = new Selector(grid);
 	private AffineTransform tx;
-	boolean playing = false;
+	boolean PLAYING = false;
 	private Image Sprite;
-	int counter = 0;
-	boolean clicking = false;
+	int COUNTER = 0;
+	boolean CLICKING = false;
 	int type;
-	boolean drawing = true;
+	boolean DRAWING = true;
 	private int TICKRATE = 25;
 	private Rectangle cursor = new Rectangle(0,0,4,4);
 	private Rectangle pausebutton = new Rectangle(1500,916,256,96);
@@ -48,7 +48,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	
 	public void paint(Graphics g) {
         super.paintComponent(g);
-        counter++;
+        COUNTER++;
         Graphics2D g2 = (Graphics2D) g;
         
         
@@ -61,17 +61,17 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         g.setColor(new Color(45,45,45));
         g.fillRect(0, 0, 2000, 2000);
         grid.paint(g);
-        s.update(point, clicking, grid,drawing);
+        s.update(point, CLICKING, grid,DRAWING);
         cursor.setLocation(point);
         s.paint(g, grid);
-        if (counter >= TICKRATE) {
-        	counter = 0;
-        	if (playing) {grid.update();}
+        if (COUNTER >= TICKRATE) {
+        	COUNTER = 0;
+        	if (PLAYING) {grid.update();}
         }
         
         tx = AffineTransform.getTranslateInstance(1800, 30);
-        if (!playing) {Sprite = getImage("Resources\\\\Pause.png");}
-        if (playing) {Sprite = getImage("Resources\\\\play.png");}
+        if (!PLAYING) {Sprite = getImage("Resources\\\\Pause.png");}
+        if (PLAYING) {Sprite = getImage("Resources\\\\play.png");}
 		g2.drawImage(Sprite, tx, null);
 		
 		tx = AffineTransform.getTranslateInstance(1500, 916);
@@ -87,8 +87,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 		g2.drawImage(Sprite, tx, null);
 		
 		tx = AffineTransform.getTranslateInstance(30, 30);
-        if (!drawing) {Sprite = getImage("Resources\\\\eraser.png");}
-        if (drawing) {Sprite = getImage("Resources\\\\pencil.png");}
+        if (!DRAWING) {Sprite = getImage("Resources\\\\eraser.png");}
+        if (DRAWING) {Sprite = getImage("Resources\\\\pencil.png");}
 		g2.drawImage(Sprite, tx, null);
 		
 		tx = AffineTransform.getTranslateInstance(550, 916);
@@ -134,8 +134,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 		if (arg0.getExtendedKeyCode() == 65) {s.moveX(false,grid);}
 		if (arg0.getExtendedKeyCode() == 83) {s.moveY(false,grid);}
 		if (arg0.getExtendedKeyCode() == 68) {s.moveX(true,grid);}
-		if (arg0.getExtendedKeyCode() == 32) {drawing = toggle(drawing);}
-		if (arg0.getExtendedKeyCode() == 80) {playing = toggle(playing);}
+		if (arg0.getExtendedKeyCode() == 32) {DRAWING = toggle(DRAWING);}
+		if (arg0.getExtendedKeyCode() == 80) {PLAYING = toggle(PLAYING);}
 		if (arg0.getExtendedKeyCode() == 82) {grid.reset();}
 		if (arg0.getExtendedKeyCode() == 39) {if (TICKRATE-10 > 0) {TICKRATE-=10;}}
 		if (arg0.getExtendedKeyCode() == 37) {if (TICKRATE+10 < 60) {TICKRATE+=10;}}
@@ -198,17 +198,17 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		clicking = true;
+		CLICKING = true;
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		clicking = false;
-		if (cursor.intersects(pausebutton)) {playing = toggle(playing);}
+		CLICKING = false;
+		if (cursor.intersects(pausebutton)) {PLAYING = toggle(PLAYING);}
 		if (cursor.intersects(resetbutton)) {grid.reset();}
-		if (cursor.intersects(togglebutton)) {drawing = toggle(drawing);}
+		if (cursor.intersects(togglebutton)) {DRAWING = toggle(DRAWING);}
 		if (cursor.intersects(speedbutton) || cursor.intersects(speedbutton1)) {toggleSpeed();}
 		
 	}
