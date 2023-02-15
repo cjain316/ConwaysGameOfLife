@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,12 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	int type;
 	boolean drawing = true;
 	private int TICKRATE = 25;
+	private Rectangle cursor = new Rectangle(0,0,4,4);
+	private Rectangle pausebutton = new Rectangle(1500,916,256,96);
+	private Rectangle speedbutton = new Rectangle(550,916,256,96);
+	private Rectangle resetbutton = new Rectangle(1100,916,256,96);
+	private Rectangle speedbutton1 = new Rectangle(900,916,128,96);
+	private Rectangle togglebutton = new Rectangle(150,916,256,96);
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Main f = new Main();
@@ -55,6 +62,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         g.fillRect(0, 0, 2000, 2000);
         grid.paint(g);
         s.update(point, clicking, grid,drawing);
+        cursor.setLocation(point);
         s.paint(g, grid);
         if (counter >= TICKRATE) {
         	counter = 0;
@@ -93,6 +101,11 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 		Sprite = getImage(path);
 		g2.drawImage(Sprite, tx, null);
         
+	}
+	
+	private void toggleSpeed() {
+		TICKRATE += 10;
+		if (TICKRATE>60) {TICKRATE= 5;}
 	}
 	
 	private void place() {
@@ -193,6 +206,10 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		clicking = false;
+		if (cursor.intersects(pausebutton)) {playing = toggle(playing);}
+		if (cursor.intersects(resetbutton)) {grid.reset();}
+		if (cursor.intersects(togglebutton)) {drawing = toggle(drawing);}
+		if (cursor.intersects(speedbutton) || cursor.intersects(speedbutton1)) {toggleSpeed();}
 		
 	}
 
